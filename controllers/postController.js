@@ -5,13 +5,13 @@ const { tryCatch } = require('../utils/tryCatch');
 const postUser = tryCatch(async (req, res) => {
   const { email, displayName, photoURL } = req.body;
 
-  const usersCollection = await connectDB('users');
+  const usersCol = await connectDB('users');
 
   let result;
-  result = await usersCollection.findOne({ email });
+  result = await usersCol.findOne({ email });
 
   if (!result) {
-    result = await usersCollection.insertOne({
+    result = await usersCol.insertOne({
       email,
       displayName,
       photoURL,
@@ -34,8 +34,8 @@ const addProject = tryCatch(async (req, res) => {
     tasks: { todo: [], inprogress: [], done: [] },
   };
 
-  const projectsCollection = await connectDB('projects');
-  const result = await projectsCollection.insertOne(doc);
+  const projectsCol = await connectDB('projects');
+  const result = await projectsCol.insertOne(doc);
 
   res.send(result);
 });
