@@ -7,6 +7,10 @@ const morgan = require('morgan');
 // Token
 const { postJwtToken } = require('./controllers/jwtController');
 
+// Post
+const { postUser, addProject } = require('./controllers/postController');
+const { verifyToken } = require('./middlewares/verifyToken');
+
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -33,6 +37,8 @@ app.get('/', (req, res) => {
     // *** Get Ends ***
 
     // *** Post Starts ***
+    app.post('/users', postUser);
+    app.post('/project', verifyToken, addProject);
     // *** Post Ends ***
 
     // *** Put Starts ***
