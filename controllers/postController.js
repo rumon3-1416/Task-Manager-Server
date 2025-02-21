@@ -31,7 +31,11 @@ const addProject = tryCatch(async (req, res) => {
     user_email,
     ...project,
     date: Date.now(),
-    tasks: { todo: [], inprogress: [], done: [] },
+    task_categories: [
+      { category: 'Todo', title: 'Todo', tasks: [] },
+      { category: 'In-progress', title: 'In-progress', tasks: [] },
+      { category: 'Done', title: 'Done', tasks: [] },
+    ],
   };
 
   const projectsCol = await connectDB('projects');

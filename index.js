@@ -9,16 +9,24 @@ const { postJwtToken } = require('./controllers/jwtController');
 const { verifyToken } = require('./middlewares/verifyToken');
 
 // Get
-const { getProjects } = require('./controllers/getController');
+const {
+  getProjectsTitles,
+  getAProject,
+} = require('./controllers/getController');
 
 // Post
 const { postUser, addProject } = require('./controllers/postController');
+const { addTask } = require('./controllers/putController');
 
 const app = express();
 const port = process.env.PORT || 5000;
 
 const corsOption = {
-  origin: ['http://localhost:5173'],
+  origin: [
+    'http://localhost:5173',
+    'https://task-management-72c63.web.app',
+    'https://task-management-72c63.firebaseapp.com',
+  ],
   credentials: true,
 };
 // app use
@@ -37,7 +45,8 @@ app.get('/', (req, res) => {
     app.post('/jwt', postJwtToken);
 
     // *** Get Starts ***
-    app.get('/projects', verifyToken, getProjects);
+    app.get('/projects-titles', verifyToken, getProjectsTitles);
+    app.get('/project/:id', verifyToken, getAProject);
     // *** Get Ends ***
 
     // *** Post Starts ***
@@ -46,6 +55,7 @@ app.get('/', (req, res) => {
     // *** Post Ends ***
 
     // *** Put Starts ***
+    app.put('/task/:id', verifyToken, addTask);
     // *** Put Ends ***
 
     // *** Delete Starts ***
