@@ -37,4 +37,14 @@ const deleteTask = tryCatch(async (req, res) => {
   res.send(result);
 });
 
-module.exports = { deleteTask };
+// Delete Project
+const deleteProject = tryCatch(async (req, res) => {
+  const { id } = req.params;
+
+  const projectsCol = await connectDB('projects');
+  const result = await projectsCol.deleteOne({ _id: new ObjectId(id) });
+
+  res.send(result);
+});
+
+module.exports = { deleteTask, deleteProject };
