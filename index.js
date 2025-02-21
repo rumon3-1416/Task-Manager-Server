@@ -16,7 +16,7 @@ const {
 
 // Post
 const { postUser, addProject } = require('./controllers/postController');
-const { addTask } = require('./controllers/putController');
+const { addTask, updateTask } = require('./controllers/putController');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -56,6 +56,7 @@ app.get('/', (req, res) => {
 
     // *** Put Starts ***
     app.put('/task/:id', verifyToken, addTask);
+    app.patch('/task/:id', verifyToken, updateTask);
     // *** Put Ends ***
 
     // *** Delete Starts ***
