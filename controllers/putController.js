@@ -2,6 +2,21 @@ const { ObjectId } = require('mongodb');
 const { connectDB } = require('../config/database');
 const { tryCatch } = require('../utils/tryCatch');
 
+// Update Project
+const updateProject = tryCatch(async (req, res) => {
+  const { id } = req.params;
+  const doc = req.body;
+
+  const projectsCol = await connectDB('projects');
+
+  const result = await projectsCol.updateOne(
+    { _id: new ObjectId(id) },
+    { $set: doc }
+  );
+
+  res.send(result);
+});
+
 // Add Task
 const addTask = tryCatch(async (req, res) => {
   const doc = req.body;
@@ -45,4 +60,4 @@ const updateTask = tryCatch(async (req, res) => {
   res.send(result);
 });
 
-module.exports = { addTask, updateTask };
+module.exports = { updateProject, addTask, updateTask };

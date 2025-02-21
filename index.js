@@ -16,7 +16,11 @@ const {
 
 // Post
 const { postUser, addProject } = require('./controllers/postController');
-const { addTask, updateTask } = require('./controllers/putController');
+const {
+  addTask,
+  updateTask,
+  updateProject,
+} = require('./controllers/putController');
 const { deleteTask } = require('./controllers/delController');
 
 const app = express();
@@ -58,6 +62,7 @@ app.get('/', (req, res) => {
     // *** Put Starts ***
     app.put('/task/:id', verifyToken, addTask);
     app.patch('/task/:id', verifyToken, updateTask);
+    app.patch('/project/:id', verifyToken, updateProject);
     // *** Put Ends ***
 
     // *** Delete Starts ***
