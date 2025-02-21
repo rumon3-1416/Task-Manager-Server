@@ -6,18 +6,20 @@ const { tryCatch } = require('../utils/tryCatch');
 const addTask = tryCatch(async (req, res) => {
   const doc = req.body;
   const { id } = req.params;
-  console.log(doc);
+
   const projectsCol = await connectDB('projects');
 
   const result = await projectsCol.updateOne(
     {
       _id: new ObjectId(id),
+      'task_categories.category': doc.category,
     },
     { $push: { 'task_categories.$.tasks': doc } }
   );
 
   res.send(result);
 });
+
 // Update Task
 const updateTask = tryCatch(async (req, res) => {
   const { id } = req.params;

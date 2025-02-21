@@ -17,6 +17,7 @@ const {
 // Post
 const { postUser, addProject } = require('./controllers/postController');
 const { addTask, updateTask } = require('./controllers/putController');
+const { deleteTask } = require('./controllers/delController');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -60,6 +61,7 @@ app.get('/', (req, res) => {
     // *** Put Ends ***
 
     // *** Delete Starts ***
+    app.delete('/task/:id', verifyToken, deleteTask);
     // *** Delete Ends ***
   } catch (error) {
     console.log(error.message);
