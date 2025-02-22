@@ -20,6 +20,8 @@ const {
   addTask,
   updateTask,
   updateProject,
+  sameReorder,
+  catReorder,
 } = require('./controllers/putController');
 const { deleteTask, deleteProject } = require('./controllers/delController');
 
@@ -63,6 +65,8 @@ app.get('/', (req, res) => {
     app.put('/task/:id', verifyToken, addTask);
     app.patch('/task/:id', verifyToken, updateTask);
     app.patch('/project/:id', verifyToken, updateProject);
+    app.patch('/task_same_reorder/:id', verifyToken, sameReorder);
+    app.patch('/task_cat_reorder/:id', verifyToken, catReorder);
     // *** Put Ends ***
 
     // *** Delete Starts ***

@@ -3,7 +3,7 @@ const { tryCatch } = require('../utils/tryCatch');
 
 // Post Users
 const postUser = tryCatch(async (req, res) => {
-  const { email, displayName, photoURL } = req.body;
+  const { email, displayName, photoURL, userId } = req.body;
 
   const usersCol = await connectDB('users');
 
@@ -15,6 +15,7 @@ const postUser = tryCatch(async (req, res) => {
       email,
       displayName,
       photoURL,
+      userId,
       date: Date.now(),
     });
     res.send(result);

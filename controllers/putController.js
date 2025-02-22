@@ -60,4 +60,37 @@ const updateTask = tryCatch(async (req, res) => {
   res.send(result);
 });
 
-module.exports = { updateProject, addTask, updateTask };
+// Update same Category Order
+const sameReorder = tryCatch(async (req, res) => {
+  const { id } = req.params;
+  const tasks = req.body;
+
+  const projectsCol = await connectDB('projects');
+  const result = await projectsCol.updateOne(
+    { _id: new ObjectId(id), 'task_categories.category': tasks[0].category },
+    {
+      $set: {
+        'task_categories.$.tasks': tasks,
+      },
+    }
+  );
+
+  res.send(result);
+});
+
+// Update diff Category Order
+const catReorder = tryCatch(async (req, res) => {
+  const { id } = req.params;
+  const tasks = req.body;
+  console.log(id, tasks);
+
+  res.send({ ms: 'hi' });
+});
+
+module.exports = {
+  updateProject,
+  addTask,
+  updateTask,
+  sameReorder,
+  catReorder,
+};
